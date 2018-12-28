@@ -49,16 +49,16 @@ function configureField() {
     );
   }
 
-  let floor = configureSurface({ width: 50, height: 60, color: 'red' });
+  let floor = configureSurface({ width: 60, height: 60, color: 'red' });
   floor.rotateX(-Math.PI / 2);
   floor.position.y = -60;
 
-  let end = configureSurface({ width: 50, height: 120, color: 'green' });
+  let end = configureSurface({ width: 60, height: 120, color: 'green' });
   end.position.z = -30;
 
   let side = configureSurface({ width: 60, height: 120, color: 'blue' });
   side.rotateY(-Math.PI / 2);
-  side.position.x = -25;
+  side.position.x = -30;
 
   let field = new THREE.Group();
   field.add(floor);
