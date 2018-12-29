@@ -17,6 +17,8 @@ scene.add(new THREE.AxisHelper(50));
 
 let field = configureField();
 scene.add(field);
+let piece = getRandomPiece();
+scene.add(piece);
 
 window.addEventListener('resize', onWindowResize, false);
 
