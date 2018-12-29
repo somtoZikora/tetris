@@ -19,7 +19,7 @@ let Z = configureZ();
 pieces = [I, J, L, O, S, T, Z];
 
 function getRandomPiece() {
-  const index = Math.floor(Math.random() * (pieces.length + 1));
+  const index = Math.floor(Math.random() * pieces.length);
   return pieces[index];
 }
 
