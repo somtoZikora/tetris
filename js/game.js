@@ -5,7 +5,7 @@ const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clien
 const ambientLight = new THREE.AmbientLight(0x404040);
 const controls = new THREE.TrackballControls(camera, canvas);
 
-camera.position.set(17, 6, 30);
+camera.position.set(170, 60, 300);
 camera.lookAt(scene.position);
 
 scene.add(ambientLight);
@@ -23,14 +23,13 @@ let bounds = {
   end: new THREE.Box3(new THREE.Vector3(), new THREE.Vector3()),
   openEnd: new THREE.Box3(new THREE.Vector3(), new THREE.Vector3()),
 };
+const EDGE = 240;
 
 let field = configureField();
 scene.add(field);
 
-let piece = getRandomPiece();
+let piece = null;
 let pieceBox = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
-
-scene.add(piece);
 
 window.addEventListener('resize', onWindowResize, false);
 
@@ -39,6 +38,7 @@ render();
 function render() {
   onWindowResize();
   requestAnimationFrame(render);
+  updateGame();
   controls.update();
   renderer.render(scene, camera);
 }
@@ -53,6 +53,41 @@ function onWindowResize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
+function updateGame() {
+  let cubeCounter = 0;
+  if (piece === null) {
+    piece = getRandomPiece();
+    cubeCounter += 4;
+
+    piece.position.y = EDGE / 2 - 10;
+    scene.add(piece);
+  }
+  if (gameMode === AUTO) {
+    down();
+    if (pieceBox.intersectsBox(bounds.floor)) dropFix();
+  }
+  addText(cubeCounter);
+  pieceBox.setFromObject(piece);
+}
+
+function addText(counter) {
+  let loader = new THREE.FontLoader();
+
+  loader.load('fonts/helvetiker_regular.typeface.json', function(font) {
+    let geometry = new THREE.TextGeometry(`Cubes in game: ${counter}\nCubes removed : -`, {
+      font: font,
+      size: 80,
+      height: 5,
+      curveSegments: 12,
+      bevelEnabled: true,
+      bevelThickness: 10,
+      bevelSize: 8,
+      bevelSegments: 5,
+    });
+    scene.add(new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ color })));
+  });
+}
+
 function configureField() {
   function configureSurface({ width = 1, height = 1, color = 'white' } = {}) {
     return new THREE.LineSegments(
@@ -63,29 +98,29 @@ function configureField() {
     );
   }
 
-  let floor = configureSurface({ width: 120, height: 120, color: 'red' });
+  let floor = configureSurface({ width: EDGE, height: EDGE, color: 'red' });
   floor.rotateX(-Math.PI / 2);
-  floor.position.y = -120;
+  floor.position.y = -EDGE / 2;
 
-  let ceiling = configureSurface({ width: 120, height: 120, color: 'red' });
+  let ceiling = configureSurface({ width: EDGE, height: EDGE, color: 'red' });
   ceiling.rotateX(-Math.PI / 2);
-  ceiling.position.y = 120;
+  ceiling.position.y = EDGE / 2;
   ceiling.material = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 });
 
-  let end = configureSurface({ width: 120, height: 240, color: 'green' });
-  end.position.z = -60;
+  let end = configureSurface({ width: EDGE, height: EDGE, color: 'green' });
+  end.position.z = -EDGE / 2;
 
-  let openEnd = configureSurface({ width: 120, height: 240, color: 'green' });
-  openEnd.position.z = 60;
+  let openEnd = configureSurface({ width: EDGE, height: EDGE, color: 'green' });
+  openEnd.position.z = EDGE / 2;
   openEnd.material = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 });
 
-  let side = configureSurface({ width: 120, height: 240, color: 'blue' });
+  let side = configureSurface({ width: EDGE, height: EDGE, color: 'blue' });
   side.rotateY(-Math.PI / 2);
-  side.position.x = -60;
+  side.position.x = -EDGE / 2;
 
-  let openSide = configureSurface({ width: 120, height: 240, color: 'blue' });
+  let openSide = configureSurface({ width: EDGE, height: EDGE, color: 'blue' });
   openSide.rotateY(-Math.PI / 2);
-  openSide.position.x = 60;
+  openSide.position.x = EDGE / 2;
   openSide.material = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 });
 
   let field = new THREE.Group();

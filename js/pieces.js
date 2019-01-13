@@ -41,10 +41,7 @@ function generateBevelledCube(x, y, color) {
 }
 
 function configureI() {
-  let piece = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(80, 20, 20),
-    new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 })
-  );
+  let piece = new THREE.Group();
 
   piece.add(generateBevelledCube(-40, -10, 'maroon'));
   piece.add(generateBevelledCube(-20, -10, 'maroon'));
@@ -55,10 +52,7 @@ function configureI() {
 }
 
 function configureJ() {
-  let piece = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(60, 40, 20),
-    new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 })
-  );
+  let piece = new THREE.Group();
 
   piece.add(generateBevelledCube(10, -20, 'silver'));
   piece.add(generateBevelledCube(10, 0, 'silver'));
@@ -69,10 +63,7 @@ function configureJ() {
 }
 
 function configureL() {
-  let piece = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(60, 40, 20),
-    new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 })
-  );
+  let piece = new THREE.Group();
 
   piece.add(generateBevelledCube(-30, -20, 'purple'));
   piece.add(generateBevelledCube(-30, 0, 'purple'));
@@ -83,10 +74,7 @@ function configureL() {
 }
 
 function configureO() {
-  let piece = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(40, 40, 20),
-    new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 })
-  );
+  let piece = new THREE.Group();
 
   piece.add(generateBevelledCube(-20, -20, 'navy'));
   piece.add(generateBevelledCube(0, -20, 'navy'));
@@ -97,10 +85,7 @@ function configureO() {
 }
 
 function configureS() {
-  let piece = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(60, 40, 20),
-    new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 })
-  );
+  let piece = new THREE.Group();
 
   piece.add(generateBevelledCube(-30, -20, 'darkgreen'));
   piece.add(generateBevelledCube(-10, -20, 'darkgreen'));
@@ -111,10 +96,7 @@ function configureS() {
 }
 
 function configureT() {
-  let piece = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(60, 40, 20),
-    new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 })
-  );
+  let piece = new THREE.Group();
 
   piece.add(generateBevelledCube(-10, -20, 'brown'));
   piece.add(generateBevelledCube(-30, 0, 'brown'));
@@ -125,10 +107,7 @@ function configureT() {
 }
 
 function configureZ() {
-  let piece = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(60, 40, 20),
-    new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 })
-  );
+  let piece = new THREE.Group();
 
   piece.add(generateBevelledCube(-10, -20, 'teal'));
   piece.add(generateBevelledCube(10, -20, 'teal'));

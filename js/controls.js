@@ -11,6 +11,8 @@ const keys = {
   DROPFIX: 32,
 };
 
+const STEPSIZE = 10;
+
 document.addEventListener('keydown', handleKeyDownPress);
 function handleKeyDownPress(event) {
   const code = event.keyCode;
@@ -19,13 +21,13 @@ function handleKeyDownPress(event) {
   if (code === keys.BACKWARD) backward();
   if (code === keys.LEFT) left();
   if (code === keys.RIGHT) right();
-  if (code === keys.UP) up();
-  if (code === keys.DOWN) down();
+  if (code === keys.UP && gameMode === MANUAL) up();
+  if (code === keys.DOWN && gameMode === MANUAL) down();
   if (code === keys.ROTATEX) xRotate();
   if (code === keys.ROTATEY) yRotate();
   if (code === keys.ROTATEZ) zRotate();
-
-  pieceBox.setFromObject(piece);
+  if (code === keys.DROPFIX) dropFix();
+  console.log(piece.position);
 }
 
 function forward() {
@@ -37,12 +39,10 @@ function backward() {
   pieceBox.setFromObject(piece);
 }
 function left() {
-  console.log('foo');
   if (!pieceBox.intersectsBox(bounds.side)) piece.position.x -= 10;
   pieceBox.setFromObject(piece);
 }
 function right() {
-  console.log('bar');
   if (!pieceBox.intersectsBox(bounds.openSide)) piece.position.x += 10;
   pieceBox.setFromObject(piece);
 }
@@ -69,6 +69,15 @@ function zRotate() {
   piece.rotateY(-Math.PI / 2);
   pieceBox.setFromObject(piece);
   adjustForRotation();
+}
+
+function dropFix() {
+  while (!pieceBox.intersectsBox(bounds.floor)) down();
+  adjustForRotation();
+  const clone = piece.clone();
+  scene.remove(piece);
+  scene.add(clone);
+  piece = null;
 }
 
 function adjustForRotation() {

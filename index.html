@@ -12,14 +12,34 @@
         height: 100vh;
         display: block;
       }
+      #info {
+        color: white;
+        position: absolute;
+        top: 10px;
+        width: 20%;
+        text-align: center;
+        z-index: 100;
+        display: block;
+      }
     </style>
   </head>
   <body>
+    <div id="info">
+      <h1>Controls</h1>
+      <p>Forward => UP ARROW KEY</p>
+      <p>Backward => DOWN ARROW KEY</p>
+      <p>Left => LEFT ARROW KEY</p>
+      <p>Right => RIGHT ARROW KEY</p>
+      <p>Up => Q (manual mode)</p>
+      <p>Down => A(manual mode)</p>
+      <p>Drop / Fix => SPACEBAR</p>
+    </div>
     <canvas id="canvas"></canvas>
     <script src="./dependencies/three.min.js"></script>
     <script src="./dependencies/three_tools.js"></script>
     <script src="./dependencies/TrackballControls.js"></script>
 
+    <script src="./js/modes.js"></script>
     <script src="./js/pieces.js"></script>
     <script src="./js/game.js"></script>
     <script src="./js/controls.js"></script>
